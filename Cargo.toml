@@ -20,8 +20,14 @@ embedded-hal = "1.0"
 libc = "0.2"
 panic-probe = "0.3"
 nb = "1.1"
-rp2040-hal = { version = "0.10", features = ["rt", "critical-section-impl"] }
-rp-pico = "0.9"
+embassy-embedded-hal = { version = "0.3.0", features = ["defmt"] }
+#embassy-sync = { version = "0.6.1", features = ["defmt"] }
+#embassy-executor = { version = "0.7.0", features = ["task-arena-size-98304", "arch-cortex-m", "executor-thread", "executor-interrupt", "defmt"] }
+#embassy-time = { version = "0.4.0", features = ["defmt", "defmt-timestamp-uptime"] }
+embassy-rp = { version = "0.3.0", features = ["defmt", "unstable-pac", "time-driver", "critical-section-impl",  "rp2040"] }
+
+#rp2040-hal = { version = "0.10", features = ["rt", "critical-section-impl"] }
+#rp-pico = "0.9"
 
 [build-dependencies]
 bindgen = "0.69"

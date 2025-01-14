@@ -8,8 +8,13 @@ use cortex_m::asm::wfi;
 use cortex_m::interrupt::Mutex;
 use defmt::{debug, Format};
 use embedded_can::{ErrorKind, ExtendedId, Id, StandardId};
-use rp2040_hal::pac;
-use rp2040_hal::pac::interrupt;
+//use rp2040_hal::pac;
+//use rp2040_hal::pac::interrupt;
+use cortex_m::peripheral::NVIC;
+use embassy_rp::interrupt;
+use embassy_rp::interrupt::Interrupt;
+//use embassy_rp::interrupt::typelevel::Interrupt;
+
 
 use crate::core::can2040_lib::{
     can2040, can2040_bitunstuffer, can2040_callback_config, can2040_check_transmit, can2040_msg,
@@ -285,8 +290,8 @@ pub fn initialize_cbus(
         can2040_start(cbus_ptr, RP2040_SYS_FREQ, baud_rate, can_rx_id, can_tx_id);
 
         // Enable interrupts and set priority for it.
-        core.NVIC.set_priority(pac::Interrupt::PIO0_IRQ_0, 0);
-        pac::NVIC::unmask(pac::Interrupt::PIO0_IRQ_0);
+        core.NVIC.set_priority(Interrupt::PIO0_IRQ_0, 0);
+        NVIC::unmask(Interrupt::PIO0_IRQ_0);
         Can2040 {}
     }
 }
